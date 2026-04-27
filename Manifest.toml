@@ -656,7 +656,7 @@ uuid = "d6f4376e-aef5-505a-96c1-9c027394607a"
 version = "1.11.0"
 
 [[deps.MiniPPL]]
-deps = ["Distributions", "DynamicHMC", "FillArrays", "LinearAlgebra", "LogDensityProblems", "LogDensityProblemsAD", "OhMyThreads", "Random", "Reexport", "Statistics", "StructArrays", "TransformVariables", "TransformedLogDensities"]
+deps = ["Distributions", "DynamicHMC", "FillArrays", "LinearAlgebra", "LogDensityProblems", "LogDensityProblemsAD", "OhMyThreads", "PosteriorStats", "Random", "Reexport", "Statistics", "StructArrays", "TransformVariables", "TransformedLogDensities"]
 path = "."
 uuid = "73d91908-8143-42fe-a2e5-0b47597f2334"
 version = "0.1.0"
