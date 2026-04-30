@@ -1,8 +1,16 @@
 abstract type AbstractModel end
 
-function prior(::AbstractModel) end
-function outcome_model(::AbstractModel) end
-function logjoint(::AbstractModel) end
+function prior(m::AbstractModel)
+    error("not implemented for $(typeof(m))")
+end
+function outcome_model(m::AbstractModel)
+    error("not implemented for $(typeof(m))")
+end
+function logjoint(m::AbstractModel)
+    error("not implemented for $(typeof(m))")
+end
+
+(m::AbstractModel)(params::NamedTuple) = outcome_model(m)(params)
 
 transformation(model::AbstractModel) = as(map(tv_transform, prior(model).dists))
 
