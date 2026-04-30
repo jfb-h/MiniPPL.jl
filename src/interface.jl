@@ -13,7 +13,3 @@ end
 (m::AbstractModel)(params::NamedTuple) = outcome_model(m)(params)
 
 transformation(model::AbstractModel) = as(map(tv_transform, prior(model).dists))
-
-# function predict(model::AbstractModel, samples)
-#     return map(outcome_model(model), samples)
-# end
