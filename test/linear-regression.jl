@@ -1,8 +1,10 @@
 using MiniPPL
 
+filldist(dist, k) = product_distribution(Fill(dist, k))
+
 @model LinearRegression(y, X) begin
     a ~ Normal(0, 1)
-    b ~ MvNormal(Zeros(size(X, 2)), I)
+    b ~ filldist(Normal(0, 1), size(X, 2))
     s ~ Exponential(1)
     m = a .+ X * b
     y ~ MvNormal(m, I * s)
@@ -17,9 +19,15 @@ begin
     pri = prior(tmp) |> rand
     out = pri |> outcome_model(tmp) |> rand
 
+    # Prior predictive check (distribution of prior mean of y)
+    rand(prior(tmp), 1000) .|> outcome_model(model) .|> rand .|> only .|> mean
+
     # Define and fit model
     model = LinearRegression(out.y, X)
     post = sample(model, 1000, 4)
+
+    # posterior predictive check (distribution of posterior mean of y)
+    rand(as_structarray(post), 1000) .|> outcome_model(model) .|> rand .|> only .|> mean
 end
 
 @model MultilevelLogisticRegression(y, X, g) begin
